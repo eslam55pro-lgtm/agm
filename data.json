@@ -9,12 +9,12 @@
       "court": "جنوب",
       "division": "شرق",
       "date": "2026-06-22",
-      "status": "نشطة",
+      "status": "مؤرشفة",
       "notes": "",
       "fee": 7500,
       "paid": 0,
       "tawkeelNum": "2026-1097",
-      "archived": false,
+      "archived": true,
       "createdAt": "2026-06-19T19:51:11.700Z"
     }
   ],
