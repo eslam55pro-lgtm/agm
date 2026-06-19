@@ -5,13 +5,13 @@
     {
       "id": "_3y4dxru8fmqlbo1zh",
       "name": "esla",
-      "role": "محامي",
-      "spec": "قانون مدني",
+      "role": "محامي متدرب",
+      "spec": "غير محدد",
       "license": "",
-      "phone": "",
+      "phone": "+201004553806",
       "email": "",
-      "salary": 0,
-      "joinDate": "",
+      "salary": 1500,
+      "joinDate": "2026-06-19",
       "notes": "",
       "photo": ""
     }
@@ -23,7 +23,16 @@
   "attendance": [],
   "salaries": [],
   "settings": {},
-  "activityLog": [],
+  "activityLog": [
+    {
+      "action": "تعديل موظف: esla",
+      "time": "١٩‏/٦‏/٢٠٢٦، ١٠:٣٠:٢٦ م"
+    },
+    {
+      "action": "مزامنة مع GitHub",
+      "time": "١٩‏/٦‏/٢٠٢٦، ١٠:٢٩:٥٢ م"
+    }
+  ],
   "sessionLogs": [],
   "version": "6.0"
 }
