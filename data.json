@@ -98,6 +98,14 @@
       "time": "13:20",
       "court": "m",
       "notes": ""
+    },
+    {
+      "id": "_ogmhtwqrrmqlf3026",
+      "caseId": "_jporadxotmqlf21vo",
+      "date": "2026-06-20",
+      "time": "01:00",
+      "court": "غرب",
+      "notes": ""
     }
   ],
   "tasks": [
@@ -154,6 +162,10 @@
     "officeEmail": ""
   },
   "activityLog": [
+    {
+      "action": "إضافة جلسة",
+      "time": "٢٠‏/٦‏/٢٠٢٦، ١٢:٠٤:٣٤ ص"
+    },
     {
       "action": "إضافة قضية: 2004/6",
       "time": "٢٠‏/٦‏/٢٠٢٦، ١٢:٠٣:٥٠ ص"
