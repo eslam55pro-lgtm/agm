@@ -1,0 +1,34 @@
+{
+  "cases": [],
+  "clients": [],
+  "staff": [],
+  "sessions": [],
+  "tasks": [],
+  "payments": [],
+  "documents": [],
+  "attendance": [],
+  "salaries": [],
+  "settings": {
+    "officeName": "AMG للمحاماة والاستشارات القانونية",
+    "officeManager": "مصطفى محمد أباظة",
+    "officeAddress": "",
+    "officePhone": "",
+    "officeEmail": ""
+  },
+  "activityLog": [
+    {
+      "action": "حفظ إعدادات",
+      "time": "٢٠‏/٦‏/٢٠٢٦، ١:٣٦:٥٥ ص"
+    },
+    {
+      "action": "إضافة موظف: shsjs",
+      "time": "٢٠‏/٦‏/٢٠٢٦، ١:٣٥:٢٦ ص"
+    },
+    {
+      "action": "إضافة موظف: أحمد سلامه رجب",
+      "time": "٢٠‏/٦‏/٢٠٢٦، ١:٣٠:٤٨ ص"
+    }
+  ],
+  "sessionLogs": [],
+  "version": "6.0"
+}
