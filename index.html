@@ -1286,7 +1286,6 @@ function doLogout(){
 // DATABASE - LOAD & SAVE
 // ============================================================
 function loadDB(){
-  // تحميل من localStorage
   const saved = localStorage.getItem(STORAGE_KEY);
   if(saved){
     try {
@@ -1299,7 +1298,6 @@ function loadDB(){
     } catch(e){}
   }
   
-  // جلب من GitHub بعد 1 ثانية
   setTimeout(() => {
     fetchFromGitHub();
   }, 1000);
@@ -1351,7 +1349,8 @@ async function fetchFromGitHub() {
         
         if (readResp.ok) {
             const data = await readResp.json();
-            const content = atob(data.content);
+            // فك التشفير بشكل صحيح للغة العربية
+            const content = decodeURIComponent(escape(atob(data.content)));
             const remoteDB = JSON.parse(content);
             
             if (remoteDB && typeof remoteDB === 'object') {
@@ -1437,7 +1436,8 @@ async function syncWithGitHub() {
                 const data = await readResp.json();
                 sha = data.sha;
                 fileExists = true;
-                const content = atob(data.content);
+                // فك التشفير بشكل صحيح للغة العربية
+                const content = decodeURIComponent(escape(atob(data.content)));
                 remoteData = JSON.parse(content);
                 console.log('✅ تم قراءة الملف من GitHub');
             } else if (readResp.status === 404) {
@@ -1468,8 +1468,9 @@ async function syncWithGitHub() {
             }
         }
         
-        // رفع البيانات إلى GitHub
+        // رفع البيانات إلى GitHub مع ترميز صحيح للغة العربية
         const jsonData = JSON.stringify(DB, null, 2);
+        // استخدام encodeURIComponent لضمان عرض النصوص العربية بشكل صحيح
         const content = btoa(unescape(encodeURIComponent(jsonData)));
         
         const body = {
@@ -2027,9 +2028,44 @@ function renderCases(){
   document.getElementById('caseTableWrap').style.display=caseViewMode==='table'?'block':'none';
 }
 
-function deleteCase(id){ if(!confirm('حذف هذه القضية؟'))return; DB.cases=DB.cases.filter(c=>c.id!==id); saveDB(); logActivity('حذف قضية'); renderCases(); showToast('تم الحذف','warning'); autoSync(); }
+// ============================================================
+// DELETE CASE - حذف نهائي للقضية وجميع بياناتها المرتبطة
+// ============================================================
+function deleteCase(id){ 
+  if(!confirm('⚠️ هل أنت متأكد من حذف هذه القضية نهائياً؟\nسيتم حذف جميع البيانات المرتبطة بها (جلسات، مدفوعات، سجل جلسات، مهام)')) return; 
+  
+  // حذف القضية
+  DB.cases = DB.cases.filter(c => c.id !== id);
+  
+  // حذف الجلسات المرتبطة
+  DB.sessions = DB.sessions.filter(s => s.caseId !== id);
+  
+  // حذف سجل الجلسات المرتبط
+  DB.sessionLogs = DB.sessionLogs.filter(l => l.caseId !== id);
+  
+  // حذف المدفوعات المرتبطة
+  DB.payments = DB.payments.filter(p => p.caseId !== id);
+  
+  // حذف المهام المرتبطة
+  DB.tasks = DB.tasks.filter(t => t.caseId !== id);
+  
+  saveDB(); 
+  logActivity('حذف قضية نهائياً'); 
+  renderCases(); 
+  showToast('✅ تم حذف القضية وجميع بياناتها المرتبطة', 'warning'); 
+  autoSync(); 
+}
 
-function archiveCase(id){ const c=DB.cases.find(x=>x.id===id); if(!c)return; c.archived=!c.archived; c.status=c.archived?'مؤرشفة':c.status==='مؤرشفة'?'مغلقة':c.status; saveDB(); renderCases(); showToast(c.archived?'تم أرشفة القضية':'تم إلغاء الأرشفة','info'); autoSync(); }
+function archiveCase(id){ 
+  const c=DB.cases.find(x=>x.id===id); 
+  if(!c)return; 
+  c.archived=!c.archived; 
+  c.status=c.archived?'مؤرشفة':c.status==='مؤرشفة'?'مغلقة':c.status; 
+  saveDB(); 
+  renderCases(); 
+  showToast(c.archived?'تم أرشفة القضية':'تم إلغاء الأرشفة','info'); 
+  autoSync(); 
+}
 
 function viewCase(id){
   const c=DB.cases.find(x=>x.id===id); if(!c)return;
