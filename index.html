@@ -1383,7 +1383,7 @@ async function fetchFromGitHub() {
 }
 
 // ============================================================
-// GITHUB - SYNC (المزامنة التلقائية)
+// GITHUB - SYNC (المزامنة التلقائية مع حفظ المهام)
 // ============================================================
 function autoSync() {
     clearTimeout(syncTimeout);
@@ -1461,7 +1461,7 @@ async function syncWithGitHub() {
             }
         }
         
-        // رفع البيانات إلى GitHub
+        // رفع البيانات إلى GitHub (بما فيها المهام)
         const jsonData = JSON.stringify(DB, null, 2);
         const content = btoa(unescape(encodeURIComponent(jsonData)));
         
@@ -1961,7 +1961,6 @@ function renderCases(){
   const search=(document.getElementById('caseSearch')?.value||'').toLowerCase();
   const filter=document.getElementById('caseFilter')?.value||'';
   let cases=DB.cases.filter(c=>{
-    // بحث بأي كلمة في جميع الحقول
     const searchText = (c.num + ' ' + getClientName(c.clientId) + ' ' + c.court + ' ' + c.type + ' ' + c.status + ' ' + (c.tawkeelNum||'') + ' ' + (c.division||'') + ' ' + (c.notes||'')).toLowerCase();
     const match = !search || searchText.includes(search);
     const filt=!filter||c.status===filter;
@@ -2182,9 +2181,7 @@ function renderClients(){
 
 function deleteClient(id){ 
   if(!confirm('حذف هذا الموكل نهائياً؟'))return; 
-  // حذف الموكل
   DB.clients=DB.clients.filter(c=>c.id!==id);
-  // تحديث القضايا التي كان مرتبط بها - تعيين clientId فارغ
   DB.cases.forEach(c => { if(c.clientId === id) c.clientId = ''; });
   saveDB(); 
   renderClients(); 
@@ -2266,7 +2263,6 @@ function renderStaff(){
 function deleteStaff(id){ 
   if(!confirm('حذف هذا الموظف نهائياً؟'))return; 
   DB.staff=DB.staff.filter(s=>s.id!==id); 
-  // تحديث القضايا التي كان مرتبط بها
   DB.cases.forEach(c => { if(c.lawyerId === id) c.lawyerId = ''; });
   saveDB(); 
   renderStaff(); 
@@ -2725,28 +2721,23 @@ function exportPDF(){ window.print(); }
 function globalSearchFn(){
   const q=document.getElementById('globalSearch').value.toLowerCase().trim();
   if(!q)return;
-  // البحث في كل الجداول
   let results = [];
   
-  // البحث في القضايا
   DB.cases.forEach(c => {
     const text = (c.num + ' ' + getClientName(c.clientId) + ' ' + c.court + ' ' + c.type + ' ' + c.status + ' ' + (c.tawkeelNum||'') + ' ' + (c.notes||'')).toLowerCase();
     if(text.includes(q)) results.push({type:'قضية', ref:c.num, detail:c.type+' - '+c.court, id:c.id, page:'cases'});
   });
   
-  // البحث في الموكلين
   DB.clients.forEach(c => {
     const text = (c.name + ' ' + (c.phone||'') + ' ' + (c.idNum||'') + ' ' + (c.tawkeelNum||'') + ' ' + (c.notes||'')).toLowerCase();
     if(text.includes(q)) results.push({type:'موكل', ref:c.name, detail:c.phone||c.idNum||'', id:c.id, page:'clients'});
   });
   
-  // البحث في الموظفين
   DB.staff.forEach(s => {
     const text = (s.name + ' ' + (s.role||'') + ' ' + (s.phone||'') + ' ' + (s.license||'')).toLowerCase();
     if(text.includes(q)) results.push({type:'موظف', ref:s.name, detail:s.role||'', id:s.id, page:'staff'});
   });
   
-  // البحث في الجلسات
   DB.sessions.forEach(s => {
     const caseName = getCaseName(s.caseId);
     const text = (caseName + ' ' + (s.court||'') + ' ' + (s.notes||'') + ' ' + (s.date||'')).toLowerCase();
@@ -2754,12 +2745,9 @@ function globalSearchFn(){
   });
   
   if(results.length){
-    // عرض النتائج في توست
     const msg = results.slice(0,5).map(r => `${r.type}: ${r.ref} (${r.detail})`).join('\n');
     if(results.length > 5) showToast(`🔍 ${results.length} نتيجة\n${msg}\n... عرض ${results.length} نتيجة`, 'info');
     else showToast(`🔍 ${results.length} نتيجة\n${msg}`, 'info');
-    
-    // انتقل إلى أول نتيجة
     if(results[0]) showPage(results[0].page);
   } else {
     showToast('🔍 لا توجد نتائج بحث', 'info');
