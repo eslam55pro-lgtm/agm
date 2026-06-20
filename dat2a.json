@@ -1,7 +1,34 @@
 {
   "cases": [],
   "clients": [],
-  "staff": [],
+  "staff": [
+    {
+      "id": "_agdlss3wbmqm2bnbu",
+      "name": "محمد",
+      "role": "محامي",
+      "spec": "قانون مدني",
+      "license": "",
+      "phone": "",
+      "email": "",
+      "salary": 0,
+      "joinDate": "",
+      "notes": "",
+      "photo": ""
+    },
+    {
+      "id": "_vxc936hz2mqm2gu9e",
+      "name": "اسلام",
+      "role": "محامي",
+      "spec": "قانون مدني",
+      "license": "",
+      "phone": "",
+      "email": "",
+      "salary": 0,
+      "joinDate": "",
+      "notes": "",
+      "photo": ""
+    }
+  ],
   "sessions": [],
   "tasks": [],
   "payments": [],
@@ -17,12 +44,24 @@
   },
   "activityLog": [
     {
+      "action": "حفظ إعدادات",
+      "time": "٢٠‏/٦‏/٢٠٢٦، ١٠:٥٩:٢٢ ص"
+    },
+    {
       "action": "مزامنة مع GitHub",
-      "time": "٢٠‏/٦‏/٢٠٢٦، ١٠:٥٦:٥٩ ص"
+      "time": "٢٠‏/٦‏/٢٠٢٦، ١٠:٥٩:١٦ ص"
+    },
+    {
+      "action": "إضافة موظف: اسلام",
+      "time": "٢٠‏/٦‏/٢٠٢٦، ١٠:٥٩:١١ ص"
+    },
+    {
+      "action": "مزامنة مع GitHub",
+      "time": "٢٠‏/٦‏/٢٠٢٦، ١٠:٥٨:٠٩ ص"
     },
     {
       "action": "حفظ إعدادات",
-      "time": "٢٠‏/٦‏/٢٠٢٦، ١٠:٥٦:٥٥ ص"
+      "time": "٢٠‏/٦‏/٢٠٢٦، ١٠:٥٨:٠٥ ص"
     },
     {
       "action": "مزامنة مع GitHub",
