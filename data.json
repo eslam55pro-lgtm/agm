@@ -1,7 +1,21 @@
 {
   "cases": [],
   "clients": [],
-  "staff": [],
+  "staff": [
+    {
+      "id": "_agdlss3wbmqm2bnbu",
+      "name": "محمد",
+      "role": "محامي",
+      "spec": "قانون مدني",
+      "license": "",
+      "phone": "",
+      "email": "",
+      "salary": 0,
+      "joinDate": "",
+      "notes": "",
+      "photo": ""
+    }
+  ],
   "sessions": [],
   "tasks": [],
   "payments": [],
@@ -17,8 +31,8 @@
   },
   "activityLog": [
     {
-      "action": "حفظ إعدادات",
-      "time": "٢٠‏/٦‏/٢٠٢٦، ١٠:٥٣:٣٦ ص"
+      "action": "إضافة موظف: محمد",
+      "time": "٢٠‏/٦‏/٢٠٢٦، ١٠:٥٥:٠٩ ص"
     },
     {
       "action": "مزامنة مع GitHub",
